@@ -185,7 +185,7 @@ export default function HeroSection() {
   };
 
   return (
-    <section className="relative w-full h-screen bg-[#010308] overflow-hidden pt-[70px] md:pt-[100px]">
+    <section className="relative w-full h-screen bg-[#010308] overflow-hidden md:pt-[100px]">
       
       {/* 1. Background Glow */}
       <div className="absolute inset-0 z-0 pointer-events-none">
