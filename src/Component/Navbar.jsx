@@ -20,8 +20,8 @@
 //   return (
 //     <nav
 //       className={`fixed top-0 w-full z-[100] transition-all duration-300 ease-in-out px-6 lg:px-[10%] py-4 ${
-//         isScrolled 
-//           ? "bg-slate-950/40 backdrop-blur-md border-b border-white/10 py-3" 
+//         isScrolled
+//           ? "bg-slate-950/40 backdrop-blur-md border-b border-white/10 py-3"
 //           : "bg-transparent py-5"
 //       }`}
 //     >
@@ -49,7 +49,7 @@
 //               <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-emerald-500 transition-all duration-300 group-hover:w-full" />
 //             </a>
 //           ))}
-          
+
 //           {/* Action Button */}
 //           <button className="ml-4 px-5 py-2 bg-white/10 border border-white/20 text-white text-xs font-bold uppercase tracking-widest rounded-sm hover:bg-emerald-600 hover:border-emerald-600 transition-all">
 //             Get Started
@@ -68,6 +68,7 @@
 // }
 
 import React, { useState, useEffect } from "react";
+import { NavLink } from "react-router-dom";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -85,17 +86,17 @@ export default function Navbar() {
   // Prevent scrolling when mobile menu is open
   useEffect(() => {
     if (isMobileMenuOpen) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     }
   }, [isMobileMenuOpen]);
 
   const navLinks = [
-    { name: "Home", href: "#home" },
-    { name: "About Us", href: "#aboutus" },
-    { name: "Products", href: "#products" },
-    { name: "Contact Us", href: "#contactus" },
+    { name: "Home", link: "/" },
+    { name: "About Us", link: "/about" },
+    { name: "Products", link: "/product" },
+    { name: "Contact Us", link: "/contact" },
   ];
 
   return (
@@ -120,15 +121,15 @@ export default function Navbar() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-14">
-            {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
+            {navLinks.map((links) => (
+              <NavLink
+                to={links.link}
+                key={links.name}
                 className="text-slate-300 text-md font-medium hover:text-emerald-400 transition-colors relative group"
               >
-                {link.name}
+                {links.name}
                 <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-emerald-500 transition-all duration-300 group-hover:w-full" />
-              </a>
+              </NavLink>
             ))}
           </div>
 
@@ -137,8 +138,19 @@ export default function Navbar() {
             className="md:hidden text-white p-2 focus:outline-none"
             onClick={() => setIsMobileMenuOpen(true)}
           >
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="w-8 h-8"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+              />
             </svg>
           </button>
         </div>
@@ -151,7 +163,7 @@ export default function Navbar() {
         }`}
       >
         {/* Dark Backdrop Overlay */}
-        <div 
+        <div
           className={`absolute inset-0 bg-slate-950/80 backdrop-blur-sm transition-opacity duration-300 ${
             isMobileMenuOpen ? "opacity-100" : "opacity-0"
           }`}
@@ -170,28 +182,36 @@ export default function Navbar() {
               onClick={() => setIsMobileMenuOpen(false)}
               className="text-slate-400 hover:text-white transition-colors"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-8 h-8">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={2}
+                stroke="currentColor"
+                className="w-8 h-8"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M6 18L18 6M6 6l12 12"
+                />
               </svg>
             </button>
           </div>
 
           {/* Mobile Links */}
           <div className="flex flex-col gap-6 px-10 pt-4">
-            {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
+            {navLinks.map((links) => (
+              <NavLink
+                to={links.link}
+                key={links.name}
                 onClick={() => setIsMobileMenuOpen(false)}
                 className="text-white text-xl font-bold tracking-tight hover:text-emerald-500 transition-colors"
               >
-                {link.name}
-              </a>
+
+                {links.name}
+              </NavLink>
             ))}
-            {/* <div className="h-[1px] w-full bg-white/10 my-4" />
-            <button className="w-full py-4 bg-emerald-600 text-white font-bold uppercase tracking-widest text-xs rounded-sm shadow-lg shadow-emerald-900/20">
-              Get Started
-            </button> */}
           </div>
         </div>
       </div>
